@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Activity } from "./pages/Activity";
@@ -21,21 +21,17 @@ function App() {
   };
 
   async function fetchOuraData() {
-    const url = "/api/oura";
-    const accessToken = process.env.NEXT_PUBLIC_OURA_ACCESS_TOKEN;
-
     try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.get("http://localhost:5001/oura-api");
       console.log("Oura Data:", response.data);
     } catch (error) {
       console.error("Error fetching data from Oura API:", error);
     }
   }
+
+  useEffect(() => {
+    fetchOuraData();
+  }, []);
 
   return (
     <Router>

@@ -10,7 +10,7 @@ require("dotenv").config();
 
 console.log("Oura Access Token:", process.env.REACT_APP_OURA_ACCESS_TOKEN);
 
-const PORT = 5000;
+const PORT = 5001;
 
 app.get("/oura-api", async (req, res) => {
   try {
@@ -19,6 +19,7 @@ app.get("/oura-api", async (req, res) => {
       {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_OURA_ACCESS_TOKEN}`,
+          "Access-Control-Allow-Origin": process.env.ALLOWED_ORIGIN,
         },
       }
     );
